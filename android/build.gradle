@@ -1,0 +1,38 @@
+buildscript {
+    ext.kotlin_version = '1.5.0'
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
+        classpath 'com.google.gms:google-services:4.3.10'
+    }
+}
+apply plugin: "com.example.chat_app"
+apply plugin: "kotlin-android"
+apply plugin: "dev.flutter.flutter-gradle-plugin"  
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+
+
